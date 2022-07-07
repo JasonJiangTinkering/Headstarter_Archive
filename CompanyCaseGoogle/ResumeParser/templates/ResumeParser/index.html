@@ -1,20 +1,36 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Index</title>
-</head>
-<body>
-    
+{% extends "ResumeParser/base.html" %}
+
+{% block header %}
+<title>Homepage | ResumeParser</title>
+
+{% endblock header %}
+
+{% block content %}
+
+
+{% if user.is_authenticated %}
+    <p>Welcome, {{ user.username }} !</p>
+    {% else %}
+    NOT LOGGED IN
+    {% endif %}
+
+<h1>ResumeParser Homepage</h1>
+
+<ol>
+  <li>
     <a class="button is-primary" href="{% url 'ResumeParser:submit'%}">
-        <strong>Submit</strong>
-      </a>
-      <a class="button is-primary" href="{% url 'ResumeParser:review'%}">
-        <strong>Review</strong>
-      </a>
-    
-    
-</body>
-</html>
+    <strong>Submit Resume</strong></a>
+  </li>
+  <li>
+    <a class="button is-primary" href="{% url 'ResumeParser:review'%}">
+    <strong>Review</strong></a>
+  </li>
+  <li>
+    <a class="button is-primary" href="/admin">
+    <strong>Admin</strong></a>
+  </li>
+</ol>
+
+
+
+{% endblock content %}

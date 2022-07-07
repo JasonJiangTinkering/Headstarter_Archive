@@ -34,8 +34,9 @@ INSTALLED_APPS = [
     'ResumeParser',
     'django.contrib.admin',
     'django.contrib.auth',
+    'django.contrib.sites',
 #all auth apps
-    'allauth',
+    'allauth',  
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.google',
@@ -55,7 +56,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-]
+]   
 
 ROOT_URLCONF = 'mysite.urls'
 
@@ -140,7 +141,7 @@ AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
     'allauth.account.auth_backends.AuthenticationBackend'
 ]
-SITE_ID = 1
+SITE_ID = 2
 LOGIN_REDIRECT_URL = '/'
 
 # Additional configuration settings
