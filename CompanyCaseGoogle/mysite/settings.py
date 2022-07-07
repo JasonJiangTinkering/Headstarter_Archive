@@ -63,7 +63,7 @@ from os.path import join, normpath
 
 STATIC_ROOT = join(BASE_DIR, 'static')
 MEDIA_ROOT = join(BASE_DIR, 'media')
-
+print(f"base dirs {BASE_DIR}")
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
