@@ -29,8 +29,13 @@ ALLOWED_HOSTS = []
 
 
 # Application definition
+TAILWIND_APP_NAME = 'theme'
 
 INSTALLED_APPS = [
+    'tailwind',
+    'theme',
+    'django_browser_reload',
+
     'ResumeParser',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -49,6 +54,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    "django_browser_reload.middleware.BrowserReloadMiddleware",
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -94,6 +100,7 @@ DATABASES = {
     }
 }
 
+NPM_BIN_PATH = r"C:\Program Files\nodejs\npm.cmd"
 
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
@@ -150,6 +157,9 @@ ACCOUNT_LOGOUT_ON_GET= True
 ACCOUNT_UNIQUE_EMAIL = True
 ACCOUNT_EMAIL_REQUIRED = True
 
+INTERNAL_IPS = [
+    "127.0.0.1",
+]
 SOCIALACCOUNT_PROVIDERS = {
     'google': {
         'SCOPE': [
