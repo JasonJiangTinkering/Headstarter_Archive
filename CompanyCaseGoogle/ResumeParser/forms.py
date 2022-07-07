@@ -7,7 +7,7 @@ from django.utils.translation import gettext_lazy as _
 class ApplicationForm(ModelForm):
     class Meta:
         model = Application
-        fields = ['apply_for', 'resume']
+        fields = ['first_name', 'last_name', 'email', 'apply_for', 'resume']
         labels = {
             'apply_for': _("Application Choice"),
             }
