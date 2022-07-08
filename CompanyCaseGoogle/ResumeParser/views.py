@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from ResumeParser.forms import ApplicationForm
 from django.http import HttpResponse
-
+from django.contrib import messages
 def admin_required(function):
     def wrapper(request, *args, **kw):
         user=request.user  
@@ -19,9 +19,11 @@ def index(request):
 
 def resumeSubmission(request):
     if request.method == "POST":
+
         form = ApplicationForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
+            messages.success(request, 'Form submission successful')
     context = {
         "form": ApplicationForm,
     }

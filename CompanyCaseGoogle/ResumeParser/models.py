@@ -20,10 +20,16 @@ def save_user_profile(sender, instance, **kwargs):
 class Opening(models.Model):
     name = models.CharField(max_length=30)
 
+
+from django.core.validators import FileExtensionValidator
 class Application(models.Model):
     first_name = models.CharField(max_length=30)
     last_name = models.CharField(max_length=30)
     email = models.CharField(max_length=50)
     apply_for = models.ForeignKey(Opening, on_delete=models.CASCADE)
-    resume = models.FileField(upload_to="UploadedResumes")
+    resume = models.FileField(upload_to="UploadedResumes", validators=[
+        FileExtensionValidator( ['pdf', 'docx'] ),
+        ],
+        help_text="Please Submit PDF or DOCX file format"
+        )
     REQUIRED_FIELDS = [first_name, last_name, email, apply_for, resume]

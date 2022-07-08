@@ -1,6 +1,5 @@
-from dataclasses import field
 from multiprocessing import AuthenticationError
-from django.forms import ModelForm, Textarea
+from django.forms import ModelForm, ClearableFileInput
 from ResumeParser.models import Application
 from django.utils.translation import gettext_lazy as _
 
@@ -11,4 +10,8 @@ class ApplicationForm(ModelForm):
         labels = {
             'apply_for': _("Application Choice"),
             }
+        
+        widgets = {
+            "resume": ClearableFileInput(attrs={"accept":"pdf,.doc,.docx,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"})
+        }
 
