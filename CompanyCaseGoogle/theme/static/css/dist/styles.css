@@ -837,6 +837,14 @@ select {
   margin-bottom: 0.5rem;
 }
 
+.mt-3 {
+  margin-top: 0.75rem;
+}
+
+.mt-5 {
+  margin-top: 1.25rem;
+}
+
 .block {
   display: block;
 }
@@ -927,6 +935,10 @@ select {
 
 .w-\[100\%\] {
   width: 100%;
+}
+
+.w-screen {
+  width: 100vw;
 }
 
 .border-collapse {

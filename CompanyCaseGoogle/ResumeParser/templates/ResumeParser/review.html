@@ -3,6 +3,7 @@
 {% block header %}
 <title>Homepage | Review</title>
 <link rel="stylesheet" href="{% static 'ResumeParser/css/review.css' %}">
+<link rel="stylesheet" href="{% static 'ResumeParser/css/sortable.min.css' %}">
 {% endblock header %}
 
 
@@ -40,28 +41,31 @@
 {% endwith %}
 {% endwith %}
 
-<div class="rounded-lg">
-    <span class="flex items-center justify-space-around">
-      <img class="w-12" src="{% static 'ResumeParser/imgs/sort_by.png' %}" alt="">
-      <p class="text-4x1 font-medium text-center object-center">Sort By:</p>
-    </span>
-  </div>
 <!-- Table of resumes based on weighting -->
-<table id="resumes_table" class="w-8/12 text-center text-2xl">
-    
-    <tr>
-      <td></td>
-      <td>id:</td>
-      <td>title:</td>
-    </tr>
-
-  <tr onclick="go_to('{{open.id}}')">
-    <!-- &#9733; -->
-      <td class="text-4xl font-bold ">&#9734;</td><td>{{open.id}}</td><td>{{open.name}}</td>
-  </tr>
-
-</table>
+<table class="sortable w-screen text-center text-2xl mt-5" >
+    <thead>
+      <tr>
+        <th></th>
+        <th><span>Role</span></th>
+        <th>Name</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td></td>
+        <td>Genius</td>
+        <td>Rick</td>
+      </tr>
+      <tr>
+        <td></td>
+        <td><a href="javascript:alert('Inline javascript works!');">Sidekick</a></td>
+        <td><a id="morty" href="#">Morty</a></td>
+      </tr>
+    </tbody>
+  </table>
 </div>
 
 <script src="{% static 'ResumeParser/js/review.js' %}"></script>
+<script src="{% static 'ResumeParser/js/sortable.min.js' %}"></script>
+
 {% endblock content %}

@@ -93,3 +93,7 @@ class Application(models.Model):
         help_text="Please Submit PDF or DOCX file format"
         )
     REQUIRED_FIELDS = [first_name, last_name, email, apply_for, resume]
+
+    def name(self):
+        return self.first_name + " " + self.last_name
+
