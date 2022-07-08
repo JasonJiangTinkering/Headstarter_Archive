@@ -16,13 +16,28 @@ function loadFile(filePath) {
     return result;
   }
 
+function loadFile(url, callback) {
+    PizZipUtils.getBinaryContent(url, callback);
+}
 // Parse Resumes and add them to the sortable list
+console.log();
 for (i in applications_set){
-    file = loadFile('/media/'+ applications_set[i])
-    console.log(file);
-    var zip = new JSZip(content);
-    var doc=new Docxtemplater().loadZip(zip)
-    var text= doc.getFullText();
-    console.log(text);
+    // file = loadFile('/media/'+ applications_set[i])
+    // content = file
+    // console.log(file);
+
+    loadFile(
+        '/media/'+ applications_set[i],
+        function (error, content) {
+            if (error) {
+                throw error;
+            }
+            var zip = new PizZip(content);
+            var doc = new window.docxtemplater(zip);
+            var text = doc.getFullText();
+            console.log(text);
+            alert("Text is " + text);
+        }
+    );
 
 }
