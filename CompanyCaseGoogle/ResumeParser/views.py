@@ -18,6 +18,10 @@ def index(request):
     return render(request, "ResumeParser/index.html")
 
 def resumeSubmission(request):
+    if request.method == "POST":
+        form = ApplicationForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
     context = {
         "form": ApplicationForm,
     }
