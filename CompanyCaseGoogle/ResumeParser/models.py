@@ -15,11 +15,11 @@ import json
         # look for tool
 
 default_weighting= {
-    'Work Experience': [.25, {r'[0-9]+[+][ years of experience]gm':[1, 'UT', 1]}],
+    'Work Experience': [.25, {'Duration of Experience':[r'[0-9]+[+][ years of experience]gm', 1, 'UT', 1]}],
     'Tools': [.30, {
-        r'[react]gm': [1, 'UC', 1],
-        r'[django]gm':[1, 'UC', 1],
-        r'[tailwind]gm':[1, 'UC', 1],
+       'react experience' : [ r'[react]gm', 1, 'UC', 1],
+        'django experience' :[r'[django]gm', 1, 'UC', 1],
+        'tailwind experience' :[r'[tailwind]gm', 1, 'UC', 1],
         }]
     }
 

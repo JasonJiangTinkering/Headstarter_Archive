@@ -1,12 +1,67 @@
 {% extends "ResumeParser/base.html" %}
-
+{% load static %}
 {% block header %}
 <title>Homepage | Review</title>
-
+<link rel="stylesheet" href="{% static 'ResumeParser/css/review.css' %}">
 {% endblock header %}
 
 
 {% block content %}
-Review Submissions
 
+<h1 class="font-medium leading-tight text-2xl mt-0 mb-2 text-blue-600">Applications Name: {{opening.name}}</h1>
+{% with applications=opening.application_set.all %}
+{% with weighting=opening.weighting %}
+<h1 class="font-medium leading-tight text-1xl mt-0 mb-2 text-blue-600">Nums_of_Applications: {{applications|length}}</h1>
+<div class="flex justify-between items-stretch">
+    <h1 class="font-medium leading-tight text-1xl mt-0 mb-2 text-blue-600">See Weighting Breakdown Below</h1>
+    <button class="float-right rounded-md bg-slate-200 p-1"><h1 class="font-medium leading-tight text-1xl mt-0 mb-2 text-blue-600">Edit Breakdown</h1></button>
+
+</div>
+
+<div class="flex flex-col justify-center items-center">
+    <div style="background-color: #D9D9D9;" class="w-11/12  flex justify-between">
+        {% for big_catagory_title, details in weighting.items %}
+        <div style="width: calc({{details.0}}% * 100);"class="flex flex-col h-1/2 border-spacing-1 border-black" >
+            <div class="random_color w-[100%] flex items-center justify-center">
+                <span style="background-color:#00FEFE">{{big_catagory_title}} : {{details.0}}</span>
+            </div>
+            <div class="flex items-center justify-between">
+                {% for title, other_details in details.1.items %}
+                <div style="border: solid black; width: calc({{other_details.3}}% * 100);">
+                    {{title}} : {{other_details.3}}
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+{% endwith %}
+{% endwith %}
+
+<div class="rounded-lg">
+    <span class="flex items-center justify-space-around">
+      <img class="w-12" src="{% static 'ResumeParser/imgs/sort_by.png' %}" alt="">
+      <p class="text-4x1 font-medium text-center object-center">Sort By:</p>
+    </span>
+  </div>
+<!-- Table of resumes based on weighting -->
+<table id="resumes_table" class="w-8/12 text-center text-2xl">
+    
+    <tr>
+      <td></td>
+      <td>id:</td>
+      <td>title:</td>
+    </tr>
+
+  <tr onclick="go_to('{{open.id}}')">
+    <!-- &#9733; -->
+      <td class="text-4xl font-bold ">&#9734;</td><td>{{open.id}}</td><td>{{open.name}}</td>
+  </tr>
+
+</table>
+</div>
+
+<script src="{% static 'ResumeParser/js/review.js' %}"></script>
 {% endblock content %}

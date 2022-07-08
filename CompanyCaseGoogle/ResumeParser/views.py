@@ -38,4 +38,8 @@ def resumeSubmission(request, opening_id):
 @admin_required
 @login_required
 def adminReview(request, opening_id):
-    return render(request, "ResumeParser/review.html")
+    the_opening = Opening.objects.get(pk=opening_id)
+    context = {
+        "opening":the_opening,
+    }
+    return render(request, "ResumeParser/review.html", context)

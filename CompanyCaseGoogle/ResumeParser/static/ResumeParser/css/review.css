@@ -1,0 +1,7 @@
+td:nth-child(even){
+    --tw-bg-opacity: 1;
+    background-color: #D9D9D9;
+  }
+  td:nth-child(odd){
+    background-color: #E8E5E5;
+  }
