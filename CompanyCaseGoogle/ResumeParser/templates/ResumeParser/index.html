@@ -1,36 +1,69 @@
 {% extends "ResumeParser/base.html" %}
-
+{% load static %}
 {% block header %}
 <title>Homepage | ResumeParser</title>
+<link rel="stylesheet" href="{% static 'ResumeParser/css/index.css' %}">
 
 {% endblock header %}
 
 {% block content %}
 
-
 {% if user.is_authenticated %}
-    <p>Welcome, {{ user.username }} !</p>
+    <p class="absolute font-extrabold right-0">Welcome, {{ user.profile }} !</p>
     {% else %}
-    NOT LOGGED IN
+    Not Logged In
     {% endif %}
 
-<h1>ResumeParser Homepage</h1>
+<div class="flex items-center flex-col h-screen">
+  <h1 class="font-medium leading-tight text-5xl mt-0 mb-2 text-blue-600">ResumeParser Homepage</h1>
+  <h2 class="font-normal leading-tight text-4xl mt-0 mb-2 text-blue-600">Please select from the Positions Below</h2>
 
-<ol>
-  <li>
-    <a class="button is-primary" href="{% url 'ResumeParser:submit'%}">
-    <strong>Submit Resume</strong></a>
-  </li>
-  <li>
-    <a class="button is-primary" href="{% url 'ResumeParser:review'%}">
-    <strong>Review</strong></a>
-  </li>
-  <li>
-    <a class="button is-primary" href="/admin">
-    <strong>Admin</strong></a>
-  </li>
-</ol>
+  <!-- table options -->
+  <div class="flex justify-between items-start w-8/12 p-3 ">
+    <!-- sort -->
+    <div class="rounded-lg">
+      <span class="flex items-center justify-space-around">
+        <img class="w-12" src="{% static 'ResumeParser/imgs/sort_by.png' %}" alt="">
+        <p class="text-4x1 font-medium text-center object-center">Sort By:</p>
+      </span>
+    </div>
+    <div onclick="modeToggle()">
 
+      <div id="reviewer_switch"  class="bg-gray-400 w-64 h-16 rounded-md flex items-center justify-around">
+        <div style="width: 103.79px; background-color: #4AE250;" class="h-16 rounded-md flex items-center justify-center">
+          <span> Applicant </span>
+        </div>
+        <div style="width: 103.79px; background-color: #FB5858;" class="h-16 rounded-md flex items-center justify-center">
+        <span> Reviewer </span>
+        </div>
+      </div>
 
+      <div id="cover" style="left: 8rem/* 128px */;" class="bg-gray-200 z-10 inline-block bottom-16 relative rounded-md w-32 h-16 left-32"></div>
+
+    </div>
+  </div>
+  
+  <table id="positions_table" class="w-8/12 text-center text-2xl">
+    
+      <tr>
+        <td></td>
+        <td>id:</td>
+        <td>title:</td>
+      </tr>
+    
+    {% for open in opening %}
+    <tr onclick="go_to('{{open.id}}')">
+      <!-- &#9733; -->
+        <td class="text-4xl font-bold ">&#9734;</td><td>{{open.id}}</td><td>{{open.name}}</td>
+    </tr>
+    {% endfor %}
+  </table>
+</div>
+
+<script>
+  const submit_base = "{% url 'ResumeParser:submit' 1 %}".slice(0, -1);
+  const review_base = "{% url 'ResumeParser:review' 1 %}".slice(0, -1);
+</script>
+<script src="{% static 'ResumeParser/js/index.js' %}"></script>
 
 {% endblock content %}

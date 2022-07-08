@@ -1,3 +1,4 @@
+from unicodedata import name
 from django.db import models
 from django.contrib.auth.models import User
 from django.dispatch import receiver
@@ -24,6 +25,8 @@ def save_user_profile(sender, instance, **kwargs):
 
 class Opening(models.Model):
     name = models.CharField(max_length=30)
+    def __str__(self) -> str:
+        return self.name
 
 
 from django.core.validators import FileExtensionValidator

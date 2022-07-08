@@ -2,7 +2,7 @@ from django.shortcuts import redirect, render
 from ResumeParser.forms import ApplicationForm
 from django.http import HttpResponse
 from django.contrib import messages
-
+from ResumeParser.models import Opening
 from django.contrib.auth.decorators import login_required 
 
 def admin_required(function):
@@ -16,14 +16,16 @@ def admin_required(function):
             return function(request, *args, **kw)
     return wrapper
 
-
 # Create your views here.
 def index(request):
-    return render(request, "ResumeParser/index.html")
+    openings = Opening.objects.all()
+    context = {
+        "opening" : openings,
+    }
+    return render(request, "ResumeParser/index.html", context)
 
-def resumeSubmission(request):
+def resumeSubmission(request, opening_id):
     if request.method == "POST":
-
         form = ApplicationForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
@@ -35,5 +37,5 @@ def resumeSubmission(request):
 
 @admin_required
 @login_required
-def adminReview(request):
+def adminReview(request, opening_id):
     return render(request, "ResumeParser/review.html")
