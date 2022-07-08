@@ -8,9 +8,8 @@
 
 
 {% block content %}
-
-<h1 class="font-medium leading-tight text-2xl mt-0 mb-2 text-blue-600">Applications Name: {{opening.name}}</h1>
 {% with applications=opening.application_set.all %}
+<h1 class="font-medium leading-tight text-2xl mt-0 mb-2 text-blue-600">Applications Name: {{opening.name}}</h1>
 {% with weighting=opening.weighting %}
 <h1 class="font-medium leading-tight text-1xl mt-0 mb-2 text-blue-600">Nums_of_Applications: {{applications|length}}</h1>
 <div class="flex justify-between items-stretch">
@@ -39,7 +38,6 @@
 </div>
 
 {% endwith %}
-{% endwith %}
 
 <!-- Table of resumes based on weighting -->
 <table class="sortable w-screen text-center text-2xl mt-5" >
@@ -64,6 +62,16 @@
     </tbody>
   </table>
 </div>
+
+<script>
+    var applications_set = []
+    {% for app in applications %}
+    applications_set.push("{{app.resume}}")
+    {% endfor %}
+    console.log(applications_set);
+</script>    
+
+{% endwith %}
 
 <script src="{% static 'ResumeParser/js/review.js' %}"></script>
 <script src="{% static 'ResumeParser/js/sortable.min.js' %}"></script>
