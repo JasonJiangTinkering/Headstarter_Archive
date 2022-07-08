@@ -8,16 +8,30 @@
 
 
 {% block content %}
-{% with applications=opening.application_set.all %}
+
 <h1 class="font-medium leading-tight text-2xl mt-0 mb-2 text-blue-600">Applications Name: {{opening.name}}</h1>
 {% with weighting=opening.weighting %}
+{% with applications=opening.application_set.all %}
+
 <h1 class="font-medium leading-tight text-1xl mt-0 mb-2 text-blue-600">Nums_of_Applications: {{applications|length}}</h1>
 <div class="flex justify-between items-stretch">
     <h1 class="font-medium leading-tight text-1xl mt-0 mb-2 text-blue-600">See Weighting Breakdown Below</h1>
     <button class="float-right rounded-md bg-slate-200 p-1"><h1 class="font-medium leading-tight text-1xl mt-0 mb-2 text-blue-600">Edit Breakdown</h1></button>
 
 </div>
+<script>
+    var users = []
+    {% for app in applications %}
+    users.push({id: {{app.id}},  resume:"{{app.resume}}", name: "{{app.name}}"})
+    {% endfor %}
+    weighting ="{{weighting}}".replaceAll("&#x27;", '"');
+    weighting = JSON.parse(weighting);
+    console.log(weighting);
 
+
+</script>
+
+{% endwith %}
 <div class="flex flex-col justify-center items-center">
     <div style="background-color: #D9D9D9;" class="w-11/12  flex justify-between">
         {% for big_catagory_title, details in weighting.items %}
@@ -40,43 +54,29 @@
 {% endwith %}
 
 <!-- Table of resumes based on weighting -->
-<table class="sortable w-screen text-center text-2xl mt-5" >
+<table  class="sortable w-screen text-center text-2xl mt-5" >
     <thead>
       <tr>
         <th></th>
-        <th><span>Role</span></th>
+        <th><span>Id</span></th>
+        <th>Score</th>
         <th>Name</th>
+
       </tr>
     </thead>
-    <tbody>
-      <tr>
-        <td></td>
-        <td>Genius</td>
-        <td>Rick</td>
-      </tr>
-      <tr>
-        <td></td>
-        <td><a href="javascript:alert('Inline javascript works!');">Sidekick</a></td>
-        <td><a id="morty" href="#">Morty</a></td>
-      </tr>
+    <tbody id="resume_details">
+
     </tbody>
   </table>
 </div>
 
-<script>
-    var applications_set = []
-    {% for app in applications %}
-    applications_set.push("{{app.resume}}")
-    {% endfor %}
-    console.log(applications_set);
-</script>    
 
-{% endwith %}
+
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/docxtemplater/3.26.2/docxtemplater.js"></script>
 <script src="https://unpkg.com/pizzip@3.1.1/dist/pizzip.js"></script>
 <script src="https://unpkg.com/pizzip@3.1.1/dist/pizzip-utils.js"></script>
-
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 <script src="{% static 'ResumeParser/js/review.js' %}"></script>
 <script src="{% static 'ResumeParser/js/sortable.min.js' %}"></script>
 
