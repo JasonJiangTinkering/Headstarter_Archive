@@ -8,12 +8,9 @@ from django.contrib.auth.decorators import login_required
 def admin_required(function):
     def wrapper(request, *args, **kw):
         user=request.user  
-        if not (user.id):
-            return HttpResponse('<h1> Not Logged In</h1>"')
-        else:
-            if (not user.profile.resumeadmin):
-                return HttpResponse("<h1> User is not an Admin </h1>")
-            return function(request, *args, **kw)
+        if (not user.profile.resumeadmin):
+            return HttpResponse("<h1> User is not an Admin </h1>")
+        return function(request, *args, **kw)
     return wrapper
 
 # Create your views here.
@@ -35,8 +32,9 @@ def resumeSubmission(request, opening_id):
     }
     return render(request, "ResumeParser/submit.html", context)
 
-@admin_required
+
 @login_required
+@admin_required
 def adminReview(request, opening_id):
     the_opening = Opening.objects.get(pk=opening_id)
     context = {
