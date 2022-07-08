@@ -7,6 +7,11 @@ from django.db.models.signals import post_save
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     resumeadmin = models.BooleanField(default=False)
+    def __str__(self) -> str:
+        display_name = self.user.first_name + " " + self.user.last_name
+        if display_name.strip() == "":
+            return self.user.username
+        return self.user.first_name + " " + self.user.last_name
 
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):
